@@ -1,12 +1,15 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 import todoRoutes from "./routes/todoRoutes.js";
 const app = express();
+
+dotenv.config({ path: __dirname + "/.env" });
+
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
-
 app.use(express.json());
 
 app.get("/", function (req, res) {
@@ -15,8 +18,8 @@ app.get("/", function (req, res) {
 
 app.use("/todos", todoRoutes);
 
-const CONNECTION_URL =
-  "mongodb+srv://Shahbaz:finland2019@cluster0.yzfzc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+//MongoDB connection created
+const CONNECTION_URL = process.env.MYDBKEY;
 
 mongoose
   .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
