@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import todoRoutes from "./routes/todoRoutes.js";
 const app = express();
 
-dotenv.config({ path: __dirname + "/.env" });
+dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
