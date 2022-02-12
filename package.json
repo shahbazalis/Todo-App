@@ -1,0 +1,22 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd client && npm start\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shahbazalis/Todo-App.git"
+  },
+  "author": "alis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shahbazalis/Todo-App/issues"
+  },
+  "homepage": "https://github.com/shahbazalis/Todo-App#readme",
+  "devDependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
