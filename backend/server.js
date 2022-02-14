@@ -16,7 +16,7 @@ app.get("/", function (req, res) {
   res.send("Hello World!");
 });
 
-app.use("/todos", todoRoutes);
+app.use("/todo", todoRoutes);
 
 //MongoDB connection created
 const CONNECTION_URL = process.env.MYDBKEY;
