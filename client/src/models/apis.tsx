@@ -10,3 +10,12 @@ export const getTodos = async () => {
     console.log("Get todos error:", error);
   }
 };
+
+export const addTodo = async () => {
+  try {
+    const todo = await axios.post<TodoItem>(baseUrl);
+    return todo.data;
+  } catch (error) {
+    console.log("Add todo error:", error);
+  }
+};

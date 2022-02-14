@@ -1,5 +1,5 @@
 import "./App.css";
-import Todos from "./views/todos";
+import Todos from "./views/todos/todos";
 function App() {
   return (
     <div className="App">
