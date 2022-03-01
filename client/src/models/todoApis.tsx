@@ -7,7 +7,7 @@ export const getTodos = async () => {
     const todos = await axios.get<TodoItem[]>(baseUrl + "todos");
     return todos.data;
   } catch (error) {
-    console.log("Get todos error:", error);
+    throw error;
   }
 };
 
@@ -16,6 +16,6 @@ export const addTodo = async () => {
     const todo = await axios.post<TodoItem>(baseUrl);
     return todo.data;
   } catch (error) {
-    console.log("Add todo error:", error);
+    throw error;
   }
 };
