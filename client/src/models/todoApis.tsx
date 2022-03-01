@@ -1,6 +1,6 @@
 import axios from "axios";
 import { TodoItem } from "../interfaces/TodoItem";
-import { baseUrl } from "../utils/constant";
+import { baseUrl } from "../constants/constant";
 
 export const getTodos = async () => {
   try {

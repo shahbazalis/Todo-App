@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTodos } from "../../models/apis";
+import { getTodos } from "../../models/todoApis";
 import { TodoItem } from "../../interfaces/TodoItem";
 
 const Todos = () => {
@@ -8,6 +8,7 @@ const Todos = () => {
   const getTodoList = async () => {
     try {
       const todosList = await getTodos();
+      console.log("Todo List",todosList);
       setTodos(todosList);
     } catch (err) {
       console.log(err);
