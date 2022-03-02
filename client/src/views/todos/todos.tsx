@@ -9,10 +9,31 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { LinearProgress } from "@material-ui/core";
-import { useStyles, StyledTableRow } from "./styles";
+import { makeStyles, styled } from "@material-ui/core/styles";
+import Dialog from "@mui/material/Dialog";
 
 import { getTodos } from "../../models/todoApis";
 import { TodoItem } from "../../interfaces/TodoItem";
+import AddButton from "../../components/buttons/addButton";
+
+const useStyles = makeStyles({
+  bold: {
+    fontWeight: 600,
+  },
+  inline: {
+    textDecorationLine: "line-through",
+  },
+});
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 const Todos = () => {
   const [todos, setTodos] = useState<TodoItem[] | undefined>([]);
@@ -36,9 +57,22 @@ const Todos = () => {
     getTodoList();
   }, []);
 
+  const handleAddTodoItem = async () => {
+    let todoItem = {
+      todo: "Write an email",
+      status: "Pending",
+      description: "To the friend",
+    };
+
+    // let todoItemAdded = await addTodoItem(todoItem);
+    //setTodo(todo.concat([todoItemAdded.data]));
+  };
+
   return (
     <div>
       {loading && <LinearProgress />}
+
+      <AddButton addTodoItem={handleAddTodoItem} />
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="medium">
@@ -85,7 +119,7 @@ const Todos = () => {
                     <TableCell
                       component="th"
                       scope="row"
-                      style={{ textDecorationLine: "line-through" }}
+                      className={classes.inline}
                     >
                       {row.todo}
                     </TableCell>
@@ -97,6 +131,7 @@ const Todos = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      {/* <Dialog></Dialog> */}
     </div>
   );
 };
