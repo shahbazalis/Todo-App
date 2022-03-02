@@ -1,9 +1,10 @@
 import "./App.css";
 import Todos from "./views/todos/todos";
+import Appbar from "./layout/appBar";
 function App() {
   return (
     <div className="App">
-      <h1>Todo App</h1>
+      <Appbar />
       <Todos />
     </div>
   );
