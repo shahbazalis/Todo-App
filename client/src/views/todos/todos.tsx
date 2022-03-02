@@ -14,8 +14,6 @@ import { useStyles, StyledTableRow } from "./styles";
 import { getTodos } from "../../models/todoApis";
 import { TodoItem } from "../../interfaces/TodoItem";
 
-
-
 const Todos = () => {
   const [todos, setTodos] = useState<TodoItem[] | undefined>([]);
   const [loading, setLoading] = useState(false);
