@@ -9,16 +9,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { LinearProgress } from "@material-ui/core";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { useStyles, StyledTableRow } from "./styles";
 
 import { getTodos } from "../../models/todoApis";
 import { TodoItem } from "../../interfaces/TodoItem";
 
-const useStyles = makeStyles({
-  bold: {
-    fontWeight: 600,
-  },
-});
+
 
 const Todos = () => {
   const [todos, setTodos] = useState<TodoItem[] | undefined>([]);
@@ -50,7 +46,7 @@ const Todos = () => {
         <Table sx={{ minWidth: 650 }} size="medium">
           <TableHead>
             <TableRow>
-              <TableCell width="30%">
+              <TableCell>
                 <Typography
                   variant="body1"
                   component="div"
@@ -82,10 +78,7 @@ const Todos = () => {
           <TableBody>
             {todos &&
               todos.map((row: TodoItem) => (
-                <TableRow
-                  key={row._id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
+                <StyledTableRow key={row._id}>
                   {row.status === "Pending" ? (
                     <TableCell component="th" scope="row" width="30%">
                       {row.todo}
@@ -101,7 +94,7 @@ const Todos = () => {
                   )}
                   <TableCell>{row.description}</TableCell>
                   <TableCell>{row.status}</TableCell>
-                </TableRow>
+                </StyledTableRow>
               ))}
           </TableBody>
         </Table>
