@@ -7,8 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { LinearProgress } from "@material-ui/core";
 import Typography from "@mui/material/Typography";
+import { LinearProgress } from "@material-ui/core";
 import { useStyles, StyledTableRow } from "./styles";
 
 import { getTodos } from "../../models/todoApis";
