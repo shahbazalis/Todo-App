@@ -8,6 +8,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import Tooltip from "@mui/material/Tooltip";
 import { LinearProgress } from "@material-ui/core";
 import { makeStyles, styled } from "@material-ui/core/styles";
 import Dialog from "@mui/material/Dialog";
@@ -15,6 +18,7 @@ import Dialog from "@mui/material/Dialog";
 import { getTodos } from "../../models/todoApis";
 import { TodoItem } from "../../interfaces/TodoItem";
 import AddButton from "../../components/buttons/addButton";
+import AddTodo from "./addTodo";
 
 const useStyles = makeStyles({
   bold: {
@@ -38,6 +42,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const Todos = () => {
   const [todos, setTodos] = useState<TodoItem[] | undefined>([]);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const classes = useStyles();
 
@@ -57,22 +62,19 @@ const Todos = () => {
     getTodoList();
   }, []);
 
-  const handleAddTodoItem = async () => {
-    let todoItem = {
-      todo: "Write an email",
-      status: "Pending",
-      description: "To the friend",
-    };
+  const handleDialogOpen = () => {
+    setOpen(true);
+  };
 
-    // let todoItemAdded = await addTodoItem(todoItem);
-    //setTodo(todo.concat([todoItemAdded.data]));
+  const handleDialogClose = () => {
+    setOpen(false);
   };
 
   return (
     <div>
       {loading && <LinearProgress />}
 
-      <AddButton addTodoItem={handleAddTodoItem} />
+      <AddButton handleOpen={handleDialogOpen} />
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="medium">
@@ -116,22 +118,28 @@ const Todos = () => {
                       {row.todo}
                     </TableCell>
                   ) : (
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      className={classes.inline}
-                    >
+                    <TableCell component="th" scope="row">
                       {row.todo}
                     </TableCell>
                   )}
                   <TableCell>{row.description}</TableCell>
                   <TableCell>{row.status}</TableCell>
+                  <TableCell>
+                    <Tooltip title="Edit">
+                      <EditIcon color="primary" />
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                      <DeleteIcon htmlColor="#FF3368 " />
+                    </Tooltip>
+                  </TableCell>
                 </StyledTableRow>
               ))}
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <Dialog></Dialog> */}
+      <Dialog open={open} onClose={handleDialogClose}>
+        <AddTodo onClose={handleDialogClose} />
+      </Dialog>
     </div>
   );
 };

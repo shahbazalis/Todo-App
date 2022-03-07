@@ -10,7 +10,7 @@ const useStyles = makeStyles({
 });
 
 interface addButtonProps {
-  addTodoItem: () => void;
+  handleOpen: () => void;
 }
 
 const AddButton = (props: addButtonProps) => {
@@ -22,7 +22,7 @@ const AddButton = (props: addButtonProps) => {
         data-testid="btn-add-todo"
         variant="outlined"
         color="primary"
-        onClick={props.addTodoItem}
+        onClick={props.handleOpen}
         className={classes.button}
       >
         Add Todo
