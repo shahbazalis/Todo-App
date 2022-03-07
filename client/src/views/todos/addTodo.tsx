@@ -7,11 +7,19 @@ import CardHeader from "@mui/material/CardHeader";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
+import { makeStyles } from "@material-ui/core/styles";
 
 import AssignmentIconAvatar from "../../components/avatar/assignmentIcon";
 import { LooseObject } from "../../interfaces/LooseObject";
 import CloseButton from "../../components/buttons/closeButton";
 import SaveButton from "../../components/buttons/saveButton";
+
+const useStyles = makeStyles((theme) => ({
+  divider: {
+    // Theme Color, or use css color in quote
+    background: "#B0B0B0",
+  },
+}));
 
 interface AddTodoInterface {
   onClose: (value: boolean) => void;
@@ -23,6 +31,8 @@ const AddTodo = (props: AddTodoInterface) => {
   const [formState, setFormState] = useState({
     values: emptyObject,
   });
+
+  const classes = useStyles();
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     // *event.persist(), which will remove the synthetic event from the pool and allow references to the event to be retained by user code.
@@ -45,7 +55,7 @@ const AddTodo = (props: AddTodoInterface) => {
     <Card sx={{ minWidth: 475 }}>
       <CardHeader avatar={<AssignmentIconAvatar />} title="Add Todo" />
 
-      <Divider />
+      <Divider classes={{ root: classes.divider }} />
       <CardContent>
         <Box
           component="form"
@@ -76,7 +86,7 @@ const AddTodo = (props: AddTodoInterface) => {
           />
         </Box>
       </CardContent>
-      <Divider />
+      <Divider classes={{ root: classes.divider }} />
       <CardActions>
         <SaveButton onClose={props.onClose} />
         <CloseButton onClose={props.onClose} />
