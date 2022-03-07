@@ -1,5 +1,6 @@
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 const useStyles = makeStyles({
   button: {
@@ -20,12 +21,13 @@ const AddButton = (props: addButtonProps) => {
     <div>
       <Button
         data-testid="btn-add-todo"
-        variant="outlined"
+        variant="contained"
         color="primary"
         onClick={props.handleOpen}
         className={classes.button}
+        startIcon = {<AddBoxIcon/>}
       >
-        Add Todo
+       Todo
       </Button>
     </div>
   );

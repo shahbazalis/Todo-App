@@ -24,9 +24,6 @@ const useStyles = makeStyles({
   bold: {
     fontWeight: 600,
   },
-  inline: {
-    textDecorationLine: "line-through",
-  },
 });
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -107,21 +104,24 @@ const Todos = () => {
                   Status
                 </Typography>
               </TableCell>
+              <TableCell>
+                <Typography
+                  variant="body1"
+                  component="div"
+                  className={classes.bold}
+                >
+                  Actions
+                </Typography>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {todos &&
               todos.map((row: TodoItem) => (
                 <StyledTableRow key={row._id}>
-                  {row.status === "Pending" ? (
-                    <TableCell component="th" scope="row" width="30%">
-                      {row.todo}
-                    </TableCell>
-                  ) : (
-                    <TableCell component="th" scope="row">
-                      {row.todo}
-                    </TableCell>
-                  )}
+                  <TableCell component="th" scope="row">
+                    {row.todo}
+                  </TableCell>
                   <TableCell>{row.description}</TableCell>
                   <TableCell>{row.status}</TableCell>
                   <TableCell>
@@ -129,7 +129,7 @@ const Todos = () => {
                       <EditIcon color="primary" />
                     </Tooltip>
                     <Tooltip title="Delete">
-                      <DeleteIcon htmlColor="#FF3368 " />
+                      <DeleteIcon htmlColor="#FF3368" />
                     </Tooltip>
                   </TableCell>
                 </StyledTableRow>
