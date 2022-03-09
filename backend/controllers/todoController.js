@@ -19,3 +19,12 @@ export const addTodo = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+
+export const deleteTodo = async (req, res) => {
+  try {
+    const todo = await Todo.findOneAndRemove({ _id: req.params.id });
+    res.status(200).json(todo);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
+};

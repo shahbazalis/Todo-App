@@ -15,7 +15,7 @@ import { LinearProgress } from "@material-ui/core";
 import { makeStyles, styled } from "@material-ui/core/styles";
 import Dialog from "@mui/material/Dialog";
 
-import { getTodos } from "../../models/todoApis";
+import { getTodos,deleteTodo } from "../../models/todoApis";
 import { TodoItem } from "../../interfaces/TodoItem";
 import AddButton from "../../components/buttons/addButton";
 import AddTodo from "./addTodo";
@@ -47,6 +47,7 @@ const Todos = () => {
     try {
       setLoading(true);
       const todosList = await getTodos();
+      console.log(todosList);
       setTodos(todosList);
       setLoading(false);
     } catch (err) {
@@ -65,6 +66,10 @@ const Todos = () => {
 
   const handleDialogClose = () => {
     setOpen(false);
+  };
+
+  const handleDelete = async (id:String) => {
+    const deletedTodo = await deleteTodo(id);
   };
 
   return (
@@ -129,7 +134,7 @@ const Todos = () => {
                       <EditIcon color="primary" />
                     </Tooltip>
                     <Tooltip title="Delete">
-                      <DeleteIcon htmlColor="#FF3368" />
+                      <DeleteIcon htmlColor="#FF3368" onClick={()=>handleDelete(row._id)} />
                     </Tooltip>
                   </TableCell>
                 </StyledTableRow>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { TodoItem } from "../interfaces/TodoItem";
+import { AddTodoItem } from "../interfaces/AddTodoItem";
 import { baseUrl } from "../constants/constant";
 
 export const getTodos = async () => {
@@ -11,9 +12,18 @@ export const getTodos = async () => {
   }
 };
 
-export const addTodo = async () => {
+export const addNewTodo = async (newTodoItem: AddTodoItem) => {
   try {
-    const todo = await axios.post<TodoItem>(baseUrl);
+    const todo = await axios.post<TodoItem>(baseUrl, newTodoItem);
+    return todo.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteTodo = async (id: String) => {
+  try {
+    const todo = await axios.delete<TodoItem>(baseUrl+`${id}`);
     return todo.data;
   } catch (error) {
     throw error;

@@ -10,6 +10,7 @@ const SaveButton = (props: SaveButtonProps) => {
     <Button
       size="small"
       variant="contained"
+      type="submit"
       color="primary"
       onClick={() => props.onClose(false)}
       startIcon={<SaveIcon />}
