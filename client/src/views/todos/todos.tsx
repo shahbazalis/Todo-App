@@ -15,10 +15,11 @@ import { LinearProgress } from "@material-ui/core";
 import { makeStyles, styled } from "@material-ui/core/styles";
 import Dialog from "@mui/material/Dialog";
 
-import { getTodos,deleteTodo } from "../../models/todoApis";
+import { getTodos, deleteTodo } from "../../models/todoApis";
 import { TodoItem } from "../../interfaces/TodoItem";
 import AddButton from "../../components/buttons/addButton";
 import AddTodo from "./addTodo";
+import UpdateTodo from "./updateTodo";
 
 const useStyles = makeStyles({
   bold: {
@@ -40,6 +41,8 @@ const Todos = () => {
   const [todos, setTodos] = useState<TodoItem[] | undefined>([]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [todoDetails, setTodoDetails] = useState<TodoItem>();
+  const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
 
   const classes = useStyles();
 
@@ -47,7 +50,6 @@ const Todos = () => {
     try {
       setLoading(true);
       const todosList = await getTodos();
-      console.log(todosList);
       setTodos(todosList);
       setLoading(false);
     } catch (err) {
@@ -68,8 +70,17 @@ const Todos = () => {
     setOpen(false);
   };
 
-  const handleDelete = async (id:String) => {
-    const deletedTodo = await deleteTodo(id);
+  const handleDelete = async (id: String) => {
+    await deleteTodo(id);
+  };
+
+  const handleUpdate = async (todo: TodoItem) => {
+    setOpenUpdateDialog(true);
+    setTodoDetails(todo);
+  };
+
+  const handleUpdateDialogClose = () => {
+    setOpenUpdateDialog(false);
   };
 
   return (
@@ -131,10 +142,16 @@ const Todos = () => {
                   <TableCell>{row.status}</TableCell>
                   <TableCell>
                     <Tooltip title="Edit">
-                      <EditIcon color="primary" />
+                      <EditIcon
+                        color="primary"
+                        onClick={() => handleUpdate(row)}
+                      />
                     </Tooltip>
                     <Tooltip title="Delete">
-                      <DeleteIcon htmlColor="#FF3368" onClick={()=>handleDelete(row._id)} />
+                      <DeleteIcon
+                        htmlColor="#FF3368"
+                        onClick={() => handleDelete(row._id)}
+                      />
                     </Tooltip>
                   </TableCell>
                 </StyledTableRow>
@@ -144,6 +161,12 @@ const Todos = () => {
       </TableContainer>
       <Dialog open={open} onClose={handleDialogClose}>
         <AddTodo onClose={handleDialogClose} />
+      </Dialog>
+      <Dialog open={openUpdateDialog} onClose={handleUpdateDialogClose}>
+        <UpdateTodo
+          onClose={handleUpdateDialogClose}
+          todoDetails={todoDetails}
+        />
       </Dialog>
     </div>
   );

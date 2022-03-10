@@ -23,7 +23,21 @@ export const addNewTodo = async (newTodoItem: AddTodoItem) => {
 
 export const deleteTodo = async (id: String) => {
   try {
-    const todo = await axios.delete<TodoItem>(baseUrl+`${id}`);
+    const todo = await axios.delete<TodoItem>(baseUrl + `${id}`);
+    return todo.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateTodo = async (
+  id: String | undefined,
+  updatedStatus: String | undefined
+) => {
+  try {
+    const todo = await axios.patch<TodoItem>(baseUrl + `${id}`, {
+      status: updatedStatus,
+    });
     return todo.data;
   } catch (error) {
     throw error;
